@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .el-badge__content.is-fixed {
+            top: 0;
+            right: 10px;
+        }
+        .el-badge__content {
+            background-color: #f56c6c;
+            border-radius: 10px;
+            color: #fff;
+            display: inline-block;
+            font-size: 12px;
+            height: 18px;
+            line-height: 18px;
+            padding: 0 6px;
+            text-align: center;
+            white-space: nowrap;
+            border: 1px solid #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li>新消息</li>
+            <sup class="el-badge__content el-badge__content--undefined is-fixed" v-text="msgCount > 99 ? '99+' : msgCount "></sup>
+        </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        websocket = new WebSocket("ws://localhost:8080/websocket");
+        websocket.onmessage = function (event) {
+            vue.msgCount++;
+        }
+        var vue = new Vue({
+            el: '#app',
+            data: {
+                msgCount: 90
+            }
+        });
+    </script>
+</body>
+
+</html>
