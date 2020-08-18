@@ -23,15 +23,18 @@ import org.springframework.stereotype.Component;
 @Component
 @ServerEndpoint("/websocket")
 public class WebSocketServer {
+	
 	private static final Logger log = LoggerFactory.getLogger(WebSocketServer.class);
+	
 	private static CopyOnWriteArraySet<WebSocketServer> webSocketSet = new CopyOnWriteArraySet<>();
+	
 	private Session session;
 
 	/**
 	 * 连接建立成功调用的方法
 	 */
 	@OnOpen
-	public void onOpen(Session session, @PathParam("userId") String userId) {
+	public void onOpen(Session session) {
 		this.session = session;
 		webSocketSet.add(this);
 		log.info("【websocket消息】 有新的连接，总数{}", webSocketSet.size());
